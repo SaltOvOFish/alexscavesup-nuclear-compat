@@ -1,0 +1,7 @@
+{
+  "replace": true,
+  "values": [
+    "createnuclear:uranium_rod",
+    "createnuclear:thorium_rod"
+  ]
+}

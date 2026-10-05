@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "I",
+    "U",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "U": {
+      "item": "createnuclear:uranium_rod"
+    }
+  },
+  "result": {
+    "id": "alexscaves:uranium_rod",
+    "count": 1
+  }
+}

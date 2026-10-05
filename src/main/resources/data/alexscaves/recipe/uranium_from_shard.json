@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:air"
+  }
+}
