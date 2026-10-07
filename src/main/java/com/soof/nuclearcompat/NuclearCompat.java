@@ -40,6 +40,9 @@ public class NuclearCompat {
     public static Holder<MobEffect> AC_IRRADIATED = null;
 
     public NuclearCompat(IEventBus modEventBus) {
+        // 注册本模组新增的方块（三种辐射岩矿石）及对应的方块物品。
+        ModBlocks.register(modEventBus);
+
         // FMLCommonSetupEvent 在所有模组的 RegisterEvent 之后触发，
         // 此时两个目标模组的效果都已注册完毕，可以安全查询。
         modEventBus.addListener(this::commonSetup);

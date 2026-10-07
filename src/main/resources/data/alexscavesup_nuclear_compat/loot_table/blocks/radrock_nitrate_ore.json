@@ -26,16 +26,11 @@
                   }
                 }
               ],
-              "name": "alexscaves:radrock_uranium_ore"
+              "name": "alexscavesup_nuclear_compat:radrock_nitrate_ore"
             },
             {
               "type": "minecraft:item",
-              "name": "createnuclear:raw_uranium",
               "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 1
-                },
                 {
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:ore_drops",
@@ -44,12 +39,14 @@
                 {
                   "function": "minecraft:explosion_decay"
                 }
-              ]
+              ],
+              "name": "createnuclear:nitrate"
             }
           ]
         }
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "alexscavesup_nuclear_compat:blocks/radrock_nitrate_ore"
 }

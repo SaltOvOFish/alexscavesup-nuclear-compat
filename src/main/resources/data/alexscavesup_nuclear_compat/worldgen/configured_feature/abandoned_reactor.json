@@ -1,0 +1,13 @@
+{
+  "type": "alexscaves:toxic_ruins",
+  "config": {
+    "structures": [
+      "alexscavesup_nuclear_compat:abandoned_reactor_0",
+      "alexscavesup_nuclear_compat:abandoned_reactor_1",
+      "alexscavesup_nuclear_compat:abandoned_reactor_2",
+      "alexscavesup_nuclear_compat:abandoned_reactor_3"
+    ],
+    "chest_loot": "minecraft:empty",
+    "sink_by": 1
+  }
+}
