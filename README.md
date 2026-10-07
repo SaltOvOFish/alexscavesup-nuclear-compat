@@ -54,6 +54,30 @@
 - `alexscaves:uranium_rod` 改为 `createnuclear:uranium_rod`；
 - 新增 `createnuclear:reactor_blueprint_item`（数量 1，权重 2）。
 
+### 8. 废弃反应堆结构（自然生成）
+在毒化洞穴新增「废弃反应堆」结构（4 种变体，`abandoned_reactor_0~3`），复用 Alex's Caves Up 的
+`toxic_ruins` 生成逻辑，以**锈蚀金属桶**作为战利品箱（通过 `loot_chest` data 标记定位）。
+
+战利品表（`alexscavesup_nuclear_compat:chests/abandoned_reactor`）包含：
+- 原子核动：铀棒、液氮桶、石墨棒、钢锭、反应堆蓝图、铅锭；
+- Alex's Caves Up：洞穴石板、氡瓶、铀烛、绿色豆粮、废料桶、防化套装、唱片 11。
+
+### 9. 辐射岩矿石
+在毒化洞穴的辐射岩（radrock）中生成 4 种矿石：
+
+| 矿石 | 掉落 |
+|---|---|
+| `radrock_iron_ore` 辐射铁矿石 | `minecraft:raw_iron` |
+| `radrock_coal_ore` 辐射煤矿石 | `minecraft:coal` |
+| `radrock_lead_ore` 辐射铅矿石 | `createnuclear:raw_lead` |
+| `radrock_nitrate_ore` 辐射硝酸盐矿石 | `createnuclear:nitrate` |
+
+### 10. 机械动力自动化兼容
+- 为 Alex's Caves Up 的核能熔炉（含 4×4 组件方块）、金属桶/锈蚀金属桶、渊海祭坛补充
+  NeoForge 的 `ItemHandler` capability，使 Create 的漏斗、溜槽、动力机械臂等能正常输入输出；
+- 渊海祭坛注册为机械臂交互点类型（类似置物台），机械臂可从中拿取/放置物品；
+- 手持 Create 扳手或机械臂物品右键渊海祭坛时放行，避免误把工具放进祭坛。
+
 ## 前置
 
 - Minecraft 1.21.1 + NeoForge 21.1.x

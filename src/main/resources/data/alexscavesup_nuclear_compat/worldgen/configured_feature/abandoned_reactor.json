@@ -7,7 +7,7 @@
       "alexscavesup_nuclear_compat:abandoned_reactor_2",
       "alexscavesup_nuclear_compat:abandoned_reactor_3"
     ],
-    "chest_loot": "minecraft:empty",
+    "chest_loot": "alexscavesup_nuclear_compat:chests/abandoned_reactor",
     "sink_by": 1
   }
 }
