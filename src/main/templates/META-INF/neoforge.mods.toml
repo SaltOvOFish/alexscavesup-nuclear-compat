@@ -36,7 +36,7 @@ replaces Create Nuclear's radiation effect (createnuclear:radiation) with
 Alex's Caves Up's irradiated effect (alexscaves:irradiated), so both mods
 share a single radiation mechanic.
 
-Requires Create Nuclear and Alex's Caves Up to function.
+Requires Create, Create Nuclear and Alex's Caves Up to function.
 '''
 
 # Mixin 配置
@@ -74,6 +74,13 @@ config="alexscavesup_nuclear_compat.mixins.json"
 # Dependency: Create Nuclear (原子核动) —— 硬依赖（直接调用其 BiomeIrradiationService）
 [[dependencies.${mod_id}]]
     modId="createnuclear"
+    type="required"
+    ordering="AFTER"
+    side="BOTH"
+
+# Dependency: Create (机械动力) —— 硬依赖（原子核动的父模组；用于注册机械臂交互点类型）
+[[dependencies.${mod_id}]]
+    modId="create"
     type="required"
     ordering="AFTER"
     side="BOTH"
