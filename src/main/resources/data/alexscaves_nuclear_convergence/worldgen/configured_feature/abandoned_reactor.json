@@ -1,0 +1,13 @@
+{
+  "type": "alexscaves_nuclear_convergence:abandoned_reactor",
+  "config": {
+    "structures": [
+      "alexscaves_nuclear_convergence:abandoned_reactor_0",
+      "alexscaves_nuclear_convergence:abandoned_reactor_1",
+      "alexscaves_nuclear_convergence:abandoned_reactor_2",
+      "alexscaves_nuclear_convergence:abandoned_reactor_3"
+    ],
+    "chest_loot": "alexscaves_nuclear_convergence:chests/abandoned_reactor",
+    "sink_by": 1
+  }
+}

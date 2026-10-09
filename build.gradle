@@ -118,6 +118,8 @@ configurations {
 dependencies {
     // Alex's Caves Up（仅编译期：mixin 目标类 NuclearFurnaceBlockEntity）
     compileOnly files("libs/alexscaves-up-0.1.4.jar")
+    // Alex's Caves Neo（仅编译期：mixin 目标类，包名 com.github.alexmodguy.alexscaves）
+    compileOnly files("libs/alexscaves-neo-2.0.3.jar")
     // Create Nuclear（仅编译期：直接调用 BiomeIrradiationService 做群系转化）
     compileOnly files("libs/createnuclear-2.0.0-neoforge.jar")
     // Create（仅编译期：注册机械臂交互点类型，让渊海祭坛可作为机械臂目标）

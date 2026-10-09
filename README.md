@@ -1,4 +1,4 @@
-# Alex's Caves Up: Nuclear Compat
+# Alex's Caves: Nuclear Convergence
 
 一个 NeoForge 1.21.1 桥接模组，把「原子核动（Create Nuclear）」与「Alex's Caves Up」的铀/辐射体系打通，
 统一为一套以 Create Nuclear 为中心的机制。
@@ -58,7 +58,7 @@
 在毒化洞穴新增「废弃反应堆」结构（4 种变体，`abandoned_reactor_0~3`），复用 Alex's Caves Up 的
 `toxic_ruins` 生成逻辑，以**锈蚀金属桶**作为战利品箱（通过 `loot_chest` data 标记定位）。
 
-战利品表（`alexscavesup_nuclear_compat:chests/abandoned_reactor`）包含：
+战利品表（`alexscaves_nuclear_convergence:chests/abandoned_reactor`）包含：
 - 原子核动：铀棒、液氮桶、石墨棒、钢锭、反应堆蓝图、铅锭；
 - Alex's Caves Up：洞穴石板、氡瓶、铀烛、绿色豆粮、废料桶、防化套装、唱片 11。
 
@@ -82,7 +82,9 @@
 
 - Minecraft 1.21.1 + NeoForge 21.1.x
 - Create Nuclear（`createnuclear`）—— **硬依赖**（直接调用其 `BiomeIrradiationService`）
-- Alex's Caves Up（`alexscaves`，PixellCubed 的 1.21.1 移植版）—— **可选依赖**（缺失时 mixin 自动停用）
+- Alex's Caves（`alexscaves`）—— **可选依赖**（缺失时 mixin 自动停用）。兼容两个 1.21.1 移植版：
+  - Alex's Caves Up（PixellCubed）
+  - Alex's Caves Neo（TysonTheEmber）
 
 ### 依赖下载（构建前自备，不随仓库提交）
 
@@ -92,6 +94,7 @@
 |---|---|---|
 | Create Nuclear（NeoForge） | `createnuclear-2.0.0-neoforge.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/createnuclear) · [Modrinth](https://modrinth.com/project/z611fdf7) · [GitHub 源码](https://github.com/Create-Nuclear-Team/CreateNuclearNeoForge) |
 | Alex's Caves Up | `alexscaves-up-0.1.4.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/alexs-caves-up) |
+| Alex's Caves Neo | `alexscaves-neo-2.0.3.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/alexs-caves-neo) · [Modrinth](https://modrinth.com/mod/alexscavesneo) |
 
 > 两个前置模组均为 GPL-3.0。本项目在编译期直接引用它们的类（`BiomeIrradiationService`、
 > `NuclearFurnaceBlockEntity` 等），依据 GPL 传染性条款，本项目同样以 GPL-3.0 分发。
@@ -103,6 +106,8 @@
   直接调用 Create Nuclear 的 `BiomeIrradiationService.circularArea`（同步登记 `PersistentIrradiatedZones`）；
 - 护甲能力互通通过 mixin 修改 `IrradiatedEffect`（辐照）与 `AcidBlock`（酸液）实现；
 - 核能熔炉燃料数量差异通过 mixin 修改 `NuclearFurnaceBlockEntity` 的裂变时间实现；
+- 上述 mixin 各提供两套（Alex's Caves Up 的 `com.alexscaves` 包名 + Alex's Caves Neo 的
+  `com.github.alexmodguy.alexscaves` 包名），`required: false`，运行时按实际加载的版本自动生效；
 - 配方 / 掉落修改通过内置数据包覆盖 `data/alexscaves/...` 实现（声明 AFTER alexscaves 保证覆盖优先级）。
 
 ## 构建

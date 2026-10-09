@@ -6,16 +6,20 @@ import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointTyp
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
 /**
- * Alex's Caves Up: Nuclear Compat
+ * Alex's Caves: Nuclear Convergence
  *
  * 一个轻量级桥接模组：把「原子核动（Create Nuclear）」的辐射状态效果
  * （createnuclear:radiation）替换为「Alex's Caves Up」的辐照效果
@@ -29,7 +33,7 @@ import org.slf4j.Logger;
 public class NuclearCompat {
 
     /** 本模组的 Mod ID，必须与 META-INF/neoforge.mods.toml 及 gradle.properties 一致。 */
-    public static final String MODID = "alexscavesup_nuclear_compat";
+    public static final String MODID = "alexscaves_nuclear_convergence";
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -43,9 +47,16 @@ public class NuclearCompat {
     public static Holder<MobEffect> CN_RADIATION = null;
     public static Holder<MobEffect> AC_IRRADIATED = null;
 
+    /** 废弃反应堆 feature 类型（不依赖 AC 的 feature 注册名，兼容 Up 与 Neo）。 */
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, MODID);
+    public static final DeferredHolder<Feature<?>, AbandonedReactorFeature> ABANDONED_REACTOR_FEATURE =
+            FEATURES.register("abandoned_reactor", () -> new AbandonedReactorFeature(AbandonedReactorFeature.Config.CODEC));
+
     public NuclearCompat(IEventBus modEventBus) {
         // 注册本模组新增的方块（四种辐射岩矿石）及对应的方块物品。
         ModBlocks.register(modEventBus);
+        // 注册废弃反应堆 feature 类型。
+        FEATURES.register(modEventBus);
 
         // FMLCommonSetupEvent 在所有模组的 RegisterEvent 之后触发，
         // 此时两个目标模组的效果都已注册完毕，可以安全查询。

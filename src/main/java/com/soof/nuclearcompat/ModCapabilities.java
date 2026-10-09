@@ -3,6 +3,7 @@ package com.soof.nuclearcompat;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +23,8 @@ import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
  * - 核能熔炉组件（4x4 多方块的外围）：组件方块无 BlockEntity，但实现了 WorldlyContainerHolder，
  *   通过 registerBlock 转发到主体 BlockEntity，让漏斗对着组件方块也能工作
  * - 金属桶 / 锈蚀金属桶：InvWrapper（共用 MetalBarrelBlockEntity）
- * - 渊海祭坛：InvWrapper（类似置物台，机械臂可放入/取出）
+ * - 姜饼桶：InvWrapper（GingerbarrelBlockEntity）
+ * - 渊海祭坛：InvWrapper（类似置物台，机械臂可放入/取出，槽位上限 1）
  */
 @EventBusSubscriber(modid = NuclearCompat.MODID)
 public final class ModCapabilities {
@@ -34,7 +36,8 @@ public final class ModCapabilities {
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         registerSided(event, "nuclear_furnace");
         registerSimple(event, "metal_barrel");
-        registerSimple(event, "abyssal_altar");
+        registerSimple(event, "gingerbarrel");
+        registerAbyssalAltar(event);
         registerNuclearFurnaceComponent(event);
     }
 
@@ -62,6 +65,44 @@ public final class ModCapabilities {
                 type,
                 (be, side) -> new InvWrapper((Container) be)
         );
+    }
+
+    /** 渊海祭坛：槽位上限固定为 1，避免机械臂一次性堆入多颗珍珠。 */
+    private static void registerAbyssalAltar(RegisterCapabilitiesEvent event) {
+        BlockEntityType<?> type = blockEntityType("abyssal_altar");
+        if (type == null) {
+            return;
+        }
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                type,
+                (be, side) -> new SingleItemInvWrapper((Container) be)
+        );
+    }
+
+    /** 槽位上限固定为 1 的容器包装：机械臂/漏斗每次最多只能放入 1 个物品。 */
+    private static class SingleItemInvWrapper extends InvWrapper {
+        SingleItemInvWrapper(Container inv) {
+            super(inv);
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+
+        @Override
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (stack.isEmpty()) {
+                return stack;
+            }
+            if (stack.getCount() <= 1) {
+                return super.insertItem(slot, stack, simulate);
+            }
+            ItemStack single = stack.copyWithCount(1);
+            ItemStack rejected = super.insertItem(slot, single, simulate);
+            return rejected.isEmpty() ? stack.copyWithCount(stack.getCount() - 1) : stack;
+        }
     }
 
     /** 核能熔炉组件方块：无 BlockEntity，通过 WorldlyContainerHolder 转发到主体。 */

@@ -1,0 +1,18 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.soof.nuclearcompat.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "NuclearFurnaceBlockEntityMixin",
+    "IrradiatedEffectMixin",
+    "AcidBlockMixin",
+    "AbyssalAltarBlockMixin",
+    "NuclearFurnaceBlockEntityNeoMixin",
+    "IrradiatedEffectNeoMixin",
+    "AcidBlockNeoMixin",
+    "AbyssalAltarBlockNeoMixin"
+  ],
+  "client": [],
+  "server": []
+}

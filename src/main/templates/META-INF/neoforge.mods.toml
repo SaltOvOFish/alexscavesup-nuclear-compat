@@ -41,7 +41,7 @@ Requires Create, Create Nuclear and Alex's Caves Up to function.
 
 # Mixin 配置
 [[mixins]]
-config="alexscavesup_nuclear_compat.mixins.json"
+config="alexscaves_nuclear_convergence.mixins.json"
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.${mod_id}]] #optional
@@ -85,7 +85,7 @@ config="alexscavesup_nuclear_compat.mixins.json"
     ordering="AFTER"
     side="BOTH"
 
-# Optional dependency: Alex's Caves Up (alexscaves)
+# Optional dependency: Alex's Caves (alexscaves)，兼容 Up 与 Neo 两个移植版
 [[dependencies.${mod_id}]]
     modId="alexscaves"
     type="optional"
