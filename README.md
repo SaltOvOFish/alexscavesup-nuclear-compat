@@ -1,17 +1,17 @@
 # Alex's Caves: Nuclear Convergence
 
-一个 NeoForge 1.21.1 桥接模组，把「原子核动（Create Nuclear）」与「Alex's Caves Up」的铀/辐射体系打通，
+一个 NeoForge 1.21.1 桥接模组，把「原子核动（Create Nuclear）」与「Alex's Caves」的铀/辐射体系打通，
 统一为一套以 Create Nuclear 为中心的机制。
 
 ## 功能
 
 ### 1. 辐射效果统一
 - 拦截 `createnuclear:radiation`（Create Nuclear 的辐射效果），改为施加 `alexscaves:irradiated`
-  （Alex's Caves Up 的辐照效果），等级 / 时长 / 氛围 / 可见性保持一致；
+  （Alex's Caves 的辐照效果），等级 / 时长 / 氛围 / 可见性保持一致；
 - 当 Create Nuclear 移除辐射效果时，同步移除辐照效果。
 
 ### 2. 铀物品映射（配方 + 掉落）
-| Alex's Caves Up | Create Nuclear |
+| Alex's Caves | Create Nuclear |
 |---|---|
 | `alexscaves:uranium` | `createnuclear:raw_uranium` |
 | `alexscaves:uranium_shard` | `createnuclear:uranium_powder` |
@@ -20,7 +20,7 @@
 
 - `radrock_uranium_ore` 掉落改为 **基础 2 个 `raw_uranium`**（受时运、爆炸衰减影响）；
 - 生物掉落（tremorzilla）中的 uranium / shard 替换为 raw_uranium / uranium_powder；
-- 禁用 Alex's Caves Up 产出 `uranium` / `uranium_shard` / `block_of_uranium` 的全部配方；
+- 禁用 Alex's Caves 产出 `uranium` / `uranium_shard` / `block_of_uranium` 的全部配方；
 - `nuclear_siren`、`nuclear_furnace_component` 配方中的铀材料改为 `raw_uranium`；
 - `raygun`、`nuclear_bomb` 配方中的 `uranium_rod` 改为 `createnuclear:uranium_rod`（核弹中心格改为 `raw_uranium_block`）；
 - `unrefined_waste` 熔炉/高炉烧炼改为产出 1 个 `createnuclear:uranium_powder`。
@@ -55,8 +55,8 @@
 - 新增 `createnuclear:reactor_blueprint_item`（数量 1，权重 2）。
 
 ### 8. 废弃反应堆结构（自然生成）
-在毒化洞穴新增「废弃反应堆」结构（4 种变体，`abandoned_reactor_0~3`），复用 Alex's Caves Up 的
-`toxic_ruins` 生成逻辑，以**锈蚀金属桶**作为战利品箱（通过 `loot_chest` data 标记定位）。
+在毒化洞穴新增「废弃反应堆」结构（4 种变体，`abandoned_reactor_0~3`），参考 Alex's Caves 的
+遗迹生成逻辑自实现，以**锈蚀金属桶**作为战利品箱（通过 `loot_chest` data 标记定位）。
 
 战利品表（`alexscaves_nuclear_convergence:chests/abandoned_reactor`）包含：
 - 原子核动：铀棒、液氮桶、石墨棒、钢锭、反应堆蓝图、铅锭；
@@ -73,7 +73,7 @@
 | `radrock_nitrate_ore` 辐射硝酸盐矿石 | `createnuclear:nitrate` |
 
 ### 10. 机械动力自动化兼容
-- 为 Alex's Caves Up 的核能熔炉（含 4×4 组件方块）、金属桶/锈蚀金属桶、渊海祭坛补充
+- 为 Alex's Caves 的核能熔炉（含 4×4 组件方块）、金属桶/锈蚀金属桶、渊海祭坛补充
   NeoForge 的 `ItemHandler` capability，使 Create 的漏斗、溜槽、动力机械臂等能正常输入输出；
 - 渊海祭坛注册为机械臂交互点类型（类似置物台），机械臂可从中拿取/放置物品；
 - 手持 Create 扳手或机械臂物品右键渊海祭坛时放行，避免误把工具放进祭坛。
@@ -90,23 +90,26 @@
 ## 前置
 
 - Minecraft 1.21.1 + NeoForge 21.1.x
-- Create Nuclear（`createnuclear`）—— **硬依赖**（直接调用其 `BiomeIrradiationService`）
+- Create（机械动力，`create`）—— **硬依赖**（Create Nuclear 的父模组）
+- Create Nuclear（原子核动，`createnuclear`）—— **硬依赖**（直接调用其 `BiomeIrradiationService`）
 - Alex's Caves（`alexscaves`）—— **可选依赖**（缺失时 mixin 自动停用）。兼容两个 1.21.1 移植版：
   - Alex's Caves Up（PixellCubed）
   - Alex's Caves Neo（TysonTheEmber）
 
 ### 依赖下载（构建前自备，不随仓库提交）
 
-本项目作为这两个模组的桥接，遵循相同的 **GPL-3.0** 许可证。构建前请自行下载两个前置 jar 放入 `libs/` 目录：
+本项目是 Create Nuclear 与 Alex's Caves 的桥接。构建前请自行下载下列前置 jar 放入 `libs/` 目录：
 
 | 模组 | 放入 `libs/` 的文件名 | 出处 |
 |---|---|---|
-| Create Nuclear（NeoForge） | `createnuclear-2.0.0-neoforge.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/createnuclear) · [Modrinth](https://modrinth.com/project/z611fdf7) · [GitHub 源码](https://github.com/Create-Nuclear-Team/CreateNuclearNeoForge) |
+| Create（机械动力） | `create-6.0.10+mc1.21.1.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/create) · [Modrinth](https://modrinth.com/mod/create) · [GitHub 源码](https://github.com/Creators-of-Create/Create) |
+| Create Nuclear（原子核动） | `createnuclear-2.0.0-neoforge.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/createnuclear) · [Modrinth](https://modrinth.com/project/z611fdf7) · [GitHub 源码](https://github.com/Create-Nuclear-Team/CreateNuclearNeoForge) |
 | Alex's Caves Up | `alexscaves-up-0.1.4.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/alexs-caves-up) |
 | Alex's Caves Neo | `alexscaves-neo-2.0.3.jar` | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/alexs-caves-neo) · [Modrinth](https://modrinth.com/mod/alexscavesneo) |
 
-> 两个前置模组均为 GPL-3.0。本项目在编译期直接引用它们的类（`BiomeIrradiationService`、
-> `NuclearFurnaceBlockEntity` 等），依据 GPL 传染性条款，本项目同样以 GPL-3.0 分发。
+> 许可证说明：本项目硬依赖 Create Nuclear 并直接调用其 `BiomeIrradiationService` 等类，
+> 而 Create Nuclear 采用 GPL-3.0，故本项目同样以 GPL-3.0 分发。Alex's Caves（Up / Neo 移植版）
+> 为可选依赖，本项目仅通过 mixin 在运行时与之交互，不并入其代码。
 
 ## 实现要点
 
@@ -125,14 +128,14 @@
 
 ## 构建
 
-1. 按上文「依赖下载」把两个前置 jar 放入 `libs/`（该目录已被 `.gitignore` 忽略，不提交）；
+1. 按上文「依赖下载」把下列前置 jar 放入 `libs/`（该目录已被 `.gitignore` 忽略，不提交）；
 2. 运行构建：
 
 ```bash
 ./gradlew build
 ```
 
-产物位于 `build/libs/`。`libs/` 内的两个前置 jar 仅用于编译期（compileOnly），不会打进产物。
+产物位于 `build/libs/`。`libs/` 内的前置 jar 仅用于编译期（compileOnly），不会打进产物。
 
 ## 可调项
 
@@ -140,7 +143,7 @@
 |---|---|---|
 | `CN_RADIATION_ID` / `AC_IRRADIATED_ID` | `NuclearCompat.java` | 两个辐射效果的注册名 |
 | `IRRADIATION_RADIUS` | `NuclearBombBiomeHandler.java` | 核弹群系转化半径（默认 90，对应核弹默认规模 3.0 × 30） |
-| 燃料烧制量 | `NuclearFurnaceBlockEntityMixin.java` | 铀棒 25600 / 钍棒 6400 裂变时间系数 |
+| 燃料烧制量 | `NuclearCompatUtil.java` | 铀棒 25600 / 钍棒 6400 裂变时间系数 |
 
 ## 许可证
 
