@@ -78,6 +78,15 @@
 - 渊海祭坛注册为机械臂交互点类型（类似置物台），机械臂可从中拿取/放置物品；
 - 手持 Create 扳手或机械臂物品右键渊海祭坛时放行，避免误把工具放进祭坛。
 
+### 11. 反应堆熔毁与警报器 / 撼地斯拉孵化联动
+- 当原子核动的反应堆热量达到 DANGER（进入失控爆炸倒计时）时，附近的 Alex's Caves 核能警报器提前响起；
+- 反应堆失控爆炸时，会孵化爆炸范围内（36 格）的 `alexscaves:tremorzilla_egg`（撼地斯拉蛋），
+  且孵出的撼地斯拉对本次核爆免疫（不会被秒杀或击飞），复刻 Alex's Caves 核弹孵化 Boss 的行为。
+
+### 12. 辐射生物转化
+- 原版的猫（Cat）与豹猫（Ocelot）在持续受到辐照 III 及以上效果 45 秒后，转化为
+  Alex's Caves 的辐射猫（`raycat`）。
+
 ## 前置
 
 - Minecraft 1.21.1 + NeoForge 21.1.x
@@ -106,8 +115,12 @@
   直接调用 Create Nuclear 的 `BiomeIrradiationService.circularArea`（同步登记 `PersistentIrradiatedZones`）；
 - 护甲能力互通通过 mixin 修改 `IrradiatedEffect`（辐照）与 `AcidBlock`（酸液）实现；
 - 核能熔炉燃料数量差异通过 mixin 修改 `NuclearFurnaceBlockEntity` 的裂变时间实现；
+- 反应堆熔毁联动通过 mixin 修改 `NuclearSirenBlockEntity`（警报器提前响起）、
+  `ReactorMeltdownExecutor`（爆炸孵化蛋）与 `NuclearExplosionEntity`（撼地斯拉免疫）实现；
+- 猫/豹猫变 raycat 通过 `EntityTickEvent` + NeoForge data attachment 累计辐照时间实现；
 - 上述 mixin 各提供两套（Alex's Caves Up 的 `com.alexscaves` 包名 + Alex's Caves Neo 的
   `com.github.alexmodguy.alexscaves` 包名），`required: false`，运行时按实际加载的版本自动生效；
+  两套 mixin 中不依赖 Alex's Caves 具体类的共享逻辑集中在 `NuclearCompatUtil` / `ArmorCompat`；
 - 配方 / 掉落修改通过内置数据包覆盖 `data/alexscaves/...` 实现（声明 AFTER alexscaves 保证覆盖优先级）。
 
 ## 构建

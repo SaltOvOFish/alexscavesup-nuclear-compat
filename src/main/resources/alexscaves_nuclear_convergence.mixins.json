@@ -11,7 +11,11 @@
     "NuclearFurnaceBlockEntityNeoMixin",
     "IrradiatedEffectNeoMixin",
     "AcidBlockNeoMixin",
-    "AbyssalAltarBlockNeoMixin"
+    "AbyssalAltarBlockNeoMixin",
+    "NuclearSirenBlockEntityMixin",
+    "NuclearSirenBlockEntityNeoMixin",
+    "ReactorMeltdownExecutorMixin",
+    "NuclearExplosionEntityMixin"
   ],
   "client": [],
   "server": []

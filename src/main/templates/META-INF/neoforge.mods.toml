@@ -31,12 +31,13 @@ authors="${mod_authors}"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Unifies the radiation systems of Create Nuclear and Alex's Caves Up:
-replaces Create Nuclear's radiation effect (createnuclear:radiation) with
-Alex's Caves Up's irradiated effect (alexscaves:irradiated), so both mods
-share a single radiation mechanic.
+Unifies the nuclear systems of Create Nuclear and Alex's Caves: replaces
+Create Nuclear's radiation effect (createnuclear:radiation) with Alex's Caves'
+irradiated effect (alexscaves:irradiated), so both mods share a single radiation
+mechanic, alongside reactor meltdown / siren linkage, tremorzilla egg hatching and
+automation compatibility between the two mods.
 
-Requires Create, Create Nuclear and Alex's Caves Up to function.
+Requires Create and Create Nuclear. Alex's Caves (the Up or Neo port) is optional.
 '''
 
 # Mixin 配置

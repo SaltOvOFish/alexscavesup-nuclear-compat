@@ -26,7 +26,7 @@ public abstract class IrradiatedEffectNeoMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void acup$immuneWhenFullArmor(LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir) {
+    private void acnc$immuneWhenFullArmor(LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir) {
         if (ArmorCompat.hasFullAntiRadiationArmor(entity) || ArmorCompat.hasFullHazmatArmor(entity)) {
             BuiltInRegistries.MOB_EFFECT.getHolder(AC_IRRADIATED).ifPresent(entity::removeEffect);
             cir.setReturnValue(false);
@@ -40,7 +40,7 @@ public abstract class IrradiatedEffectNeoMixin {
                     target = "Lcom/github/alexmodguy/alexscaves/server/item/HazmatArmorItem;getWornAmount(Lnet/minecraft/world/entity/LivingEntity;)I"
             )
     )
-    private static int acup$countAntiRadiationAsHazmat(LivingEntity entity) {
-        return Math.min(HazmatArmorItem.getWornAmount(entity) + ArmorCompat.countAntiRadiationArmor(entity), 4);
+    private static int acnc$countAntiRadiationAsHazmat(LivingEntity entity) {
+        return ArmorCompat.countHazmatLikeArmor(HazmatArmorItem.getWornAmount(entity), entity);
     }
 }

@@ -55,6 +55,16 @@ public final class RadiationCompatHandler {
         // 其余情况：把原子核动的辐射效果统一替换为 Alex's Caves Up 的辐照效果。
         if (isCnRadiation && NuclearCompat.AC_IRRADIATED != null) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+
+            // CN 的 applyEffects 每个 tick 都会重新施加辐射效果，若每次都刷新 duration，
+            // 会导致辐照效果的倒计时永不递减、缓慢扣血（applyEffectTick）永不触发。
+            // 因此：仅当实体没有辐照效果、或辐射等级发生变化时才重新施加，
+            // 其余情况保持现有效果，让 duration 正常流转。
+            MobEffectInstance existing = entity.getEffect(NuclearCompat.AC_IRRADIATED);
+            if (existing != null && existing.getAmplifier() == instance.getAmplifier()) {
+                return;
+            }
+
             entity.addEffect(new MobEffectInstance(
                     NuclearCompat.AC_IRRADIATED,
                     instance.getDuration(),

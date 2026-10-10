@@ -29,7 +29,7 @@ public abstract class AbyssalAltarBlockMixin extends BaseEntityBlock {
     }
 
     @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
-    private void acup$allowWrenchAndArmOnAltar(ItemStack stack, BlockState state, Level level, BlockPos pos,
+    private void acnc$allowWrenchAndArmOnAltar(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                                Player player, InteractionHand hand, BlockHitResult hit,
                                                CallbackInfoReturnable<ItemInteractionResult> cir) {
         if (stack.getItem() instanceof WrenchItem || stack.getItem() instanceof ArmItem) {

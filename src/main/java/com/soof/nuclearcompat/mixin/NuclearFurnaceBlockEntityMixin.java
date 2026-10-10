@@ -1,11 +1,8 @@
 package com.soof.nuclearcompat.mixin;
 
 import com.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
+import com.soof.nuclearcompat.NuclearCompatUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.objectweb.asm.Opcodes;
@@ -39,19 +36,8 @@ public abstract class NuclearFurnaceBlockEntityMixin {
                     shift = At.Shift.AFTER
             )
     )
-    private static void acup$adjustFissionTimeByRod(Level level, BlockPos pos, BlockState state, NuclearFurnaceBlockEntity entity, CallbackInfo ci) {
-        ItemStack rod = entity.getItem(1);
-        Item thoriumRod = BuiltInRegistries.ITEM
-                .get(ResourceLocation.fromNamespaceAndPath("createnuclear", "thorium_rod"));
-
-        if (thoriumRod != null && rod.is(thoriumRod)) {
-            // 钍棒：6400 系数 → 约 64 个物品
-            ((NuclearFurnaceBlockEntityMixin) (Object) entity).fissionTime =
-                    (int) Math.ceil(6400.0f * NuclearFurnaceBlockEntity.getSpeedReduction());
-        } else {
-            // 铀棒（或其他核能熔炉燃料棒）：25600 系数 → 约 256 个物品
-            ((NuclearFurnaceBlockEntityMixin) (Object) entity).fissionTime =
-                    (int) Math.ceil(25600.0f * NuclearFurnaceBlockEntity.getSpeedReduction());
-        }
+    private static void acnc$adjustFissionTimeByRod(Level level, BlockPos pos, BlockState state, NuclearFurnaceBlockEntity entity, CallbackInfo ci) {
+        ((NuclearFurnaceBlockEntityMixin) (Object) entity).fissionTime =
+                NuclearCompatUtil.fissionTimeForRod(entity.getItem(1), NuclearFurnaceBlockEntity.getSpeedReduction());
     }
 }

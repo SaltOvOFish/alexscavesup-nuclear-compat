@@ -3,8 +3,8 @@ package com.soof.nuclearcompat.mixin;
 import com.github.alexmodguy.alexscaves.server.block.AcidBlock;
 import com.github.alexmodguy.alexscaves.server.item.HazmatArmorItem;
 import com.soof.nuclearcompat.ArmorCompat;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,8 +24,8 @@ public abstract class AcidBlockNeoMixin {
                     target = "Lcom/github/alexmodguy/alexscaves/server/item/HazmatArmorItem;getWornAmount(Lnet/minecraft/world/entity/LivingEntity;)I"
             )
     )
-    private static int acup$countAntiRadiationAsHazmat(LivingEntity entity) {
-        return Math.min(HazmatArmorItem.getWornAmount(entity) + ArmorCompat.countAntiRadiationArmor(entity), 4);
+    private static int acnc$countAntiRadiationAsHazmat(LivingEntity entity) {
+        return ArmorCompat.countHazmatLikeArmor(HazmatArmorItem.getWornAmount(entity), entity);
     }
 
     @Redirect(
@@ -35,7 +35,7 @@ public abstract class AcidBlockNeoMixin {
                     target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;)V"
             )
     )
-    private void acup$skipAntiRadiationDurability(ItemStack stack, int amount, LivingEntity entity, EquipmentSlot slot) {
+    private void acnc$skipAntiRadiationDurability(ItemStack stack, int amount, LivingEntity entity, EquipmentSlot slot) {
         if (!ArmorCompat.isAntiRadiationArmor(stack)) {
             stack.hurtAndBreak(amount, entity, slot);
         }

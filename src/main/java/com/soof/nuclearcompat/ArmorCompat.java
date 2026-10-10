@@ -59,4 +59,15 @@ public final class ArmorCompat {
                 && is(entity.getItemBySlot(EquipmentSlot.LEGS), AC_LEGGINGS)
                 && is(entity.getItemBySlot(EquipmentSlot.FEET), AC_BOOTS);
     }
+
+    /**
+     * 计算「防化等价」护甲总数（防化服 + 防辐射服），上限 4。
+     *
+     * <p>{@code wornHazmat} 是调用方通过 {@code HazmatArmorItem.getWornAmount} 得到的
+     * 防化服数量（该方法属于 Alex's Caves 具体类，Up/Neo 包名不同，只能留在 mixin 里），
+     * 这里只负责把它与防辐射服数量相加并封顶。</p>
+     */
+    public static int countHazmatLikeArmor(int wornHazmat, LivingEntity entity) {
+        return Math.min(wornHazmat + countAntiRadiationArmor(entity), 4);
+    }
 }
